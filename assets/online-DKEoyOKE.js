@@ -1,5 +1,5 @@
 const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["./client-wxjKsTZn.js","./client-D9GYDIae.js"])))=>i.map(i=>d[i]);
-import{n as e}from"./bikes-CSCY1BNr.js";import{t}from"./preload-helper-CRzLMJPS.js";var n=`hbr.name`,r=[1,3,5],i=8,a=`Can’t reach the race server. Start it with  npm run online`,o=`
+import{i as e}from"./bikes-CMEfruUY.js";import{t}from"./preload-helper-CRzLMJPS.js";var n=`hbr.name`,r=[1,3,5],i=8,a=`Can’t reach the race server. Start it with  npm run online`,o=`
 .ho{position:absolute;inset:0;display:flex;flex-direction:column;padding:3.2vh 4vw 3vh;box-sizing:border-box;animation:hmIn .45s ease-out both}
 .ho .top{display:flex;justify-content:space-between;align-items:flex-start}
 .ho .brand{font-style:italic;font-weight:900;transform:skewX(-8deg);transform-origin:left bottom;line-height:.9}
