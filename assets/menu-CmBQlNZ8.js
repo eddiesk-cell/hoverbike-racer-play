@@ -11,7 +11,7 @@ import{a as e,o as t,t as n}from"./three.module-DcNjV2DT.js";import{A as r,Fr as
 .hm canvas.bg{position:absolute;inset:0;width:100%;height:100%;display:block}
 .hm .vign{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,transparent 45%,rgba(0,0,0,.7)),linear-gradient(90deg,rgba(2,4,10,.55),transparent 45%);pointer-events:none}
 .hm .scan{position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.02) 0 1px,transparent 1px 3px);pointer-events:none}
-.hm .wrap{position:absolute;inset:0;display:flex;flex-direction:column;padding:3vh 4vw 2.6vh;box-sizing:border-box}
+.hm .wrap{position:absolute;inset:0;display:flex;flex-direction:column;padding:max(3vh,env(safe-area-inset-top)) max(4vw,env(safe-area-inset-right)) max(2.6vh,env(safe-area-inset-bottom)) max(4vw,env(safe-area-inset-left));box-sizing:border-box}
 .hm.sub .wrap{display:none}
 .hm kbd{font:700 11px ui-monospace,Menlo,monospace;border:1px solid rgba(255,255,255,.5);border-bottom-width:2px;border-radius:4px;padding:1px 6px;margin:0 2px;background:rgba(255,255,255,.08);color:#fff}
 .hm button{font-family:inherit;color:inherit}
@@ -24,7 +24,8 @@ import{a as e,o as t,t as n}from"./three.module-DcNjV2DT.js";import{A as r,Fr as
 .hm .logo.sm .l1{font-size:clamp(20px,2.4vw,34px)}.hm .logo.sm .l2{font-size:clamp(12px,1.3vw,19px);letter-spacing:.4em}
 .hm .logo.sm .l1{filter:drop-shadow(0 0 8px color-mix(in srgb,var(--a) 60%,transparent))}
 /* screen shell */
-.hm .scr{flex:1;display:flex;flex-direction:column;min-height:0;position:relative}
+.hm .scr{flex:1;display:flex;flex-direction:column;min-height:0;position:relative;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;touch-action:pan-y;scrollbar-width:none}
+.hm .scr::-webkit-scrollbar{display:none}
 .hm .scr.in{animation:hmIn .45s cubic-bezier(.2,.9,.3,1) both}
 @keyframes hmIn{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}
 .hm .top{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:2.2vh}
@@ -73,7 +74,8 @@ import{a as e,o as t,t as n}from"./three.module-DcNjV2DT.js";import{A as r,Fr as
 .hm .go::after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.6),transparent);transform:skewX(-20deg);animation:hmShine 2.6s ease-in-out infinite}
 .hm .go.focus,.hm .go:hover{transform:scale(1.05);filter:brightness(1.15);outline:2px solid #fff;outline-offset:4px}
 @keyframes hmShine{0%,55%{left:-60%}100%{left:130%}}
-.hm .setupwrap{display:flex;gap:3vw;flex:1;min-height:0}.hm .setupwrap>.col{flex:1.2}.hm .setupwrap>.sum{flex:.8;align-self:flex-start}
+.hm .setupwrap{display:flex;gap:3vw;flex:1;min-height:0}.hm .setupwrap>.col{flex:1.2}.hm .setupwrap>.sumcol{flex:.8;align-self:flex-start;display:flex;flex-direction:column;align-items:flex-start;min-width:0}.hm .sumcol>.sum{align-self:stretch}
+.hm .go2{display:none} /* phones: RACE sits under the summary, where there is room */
 .hm .sum h4{margin:0 0 10px;font-size:11px;letter-spacing:.38em;color:rgba(200,240,255,.7)}
 .hm .sum .row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:13px;letter-spacing:.12em}
 .hm .sum .row b{color:#fff}
@@ -163,6 +165,47 @@ import{a as e,o as t,t as n}from"./three.module-DcNjV2DT.js";import{A as r,Fr as
 .hm .tr .max{width:130px;text-align:center;font:800 12px ui-monospace,Menlo,monospace;letter-spacing:.2em;color:#5fe39a;flex:none}
 .hm .tr .btn{width:178px;flex:none;padding:8px 10px;text-align:center;font-size:13px}
 .hm .tr .pips.pop i.on{animation:hmPop .5s}
+/* phones held sideways (and any short window): everything compact so each screen fits without a hunt for buttons */
+@media (max-height:560px){
+  .hm .wrap{padding:max(1.4vh,env(safe-area-inset-top)) max(2.4vw,env(safe-area-inset-right)) max(1.2vh,env(safe-area-inset-bottom)) max(2.4vw,env(safe-area-inset-left))}
+  .hm .top{margin-bottom:1vh;align-items:center;gap:12px}.hm .top .btn[data-act=navback]{min-height:34px;padding:6px 16px;font-size:12px;margin-left:auto}
+  .hm .logo.sm .l1{font-size:20px}.hm .logo.sm .l2{font-size:11px}
+  .hm .crumb{font-size:10px;letter-spacing:.3em}.hm .crumb b{font-size:20px}.hm .cr{font-size:14px;margin-top:2px}
+  .hm .ol{width:104px;font-size:10px;letter-spacing:.22em}.hm .opt{gap:10px;padding:.7vh 12px;margin-bottom:.7vh}
+  html.hb-touch .hm .opt{padding-top:.8vh;padding-bottom:.8vh}
+  .hm .seg{flex-wrap:nowrap;gap:5px}.hm .seg button,.hm .step button{font-size:12px;padding:6px 12px;min-width:44px}
+  html.hb-touch .hm .seg button,html.hb-touch .hm .step button,html.hb-touch .hm .btn{min-height:38px}
+  html.hb-touch .hm .seg button,html.hb-touch .hm .step button{padding:6px 14px}
+  .hm .step .v{font-size:18px;width:26px}.hm .pips i{width:7px;height:11px}
+  .hm .note{font-size:11px;margin:-2px 0 .6vh 126px;min-height:0}
+  .hm .btn{font-size:12px;padding:9px 18px}
+  .hm .go{font-size:22px;padding:8px 46px 8px 34px;margin-top:.6vh}
+  .hm .setupwrap{gap:2vw}.hm .col .go{display:none}.hm .go2{display:block;margin-top:1.2vh}.hm .sum{padding:10px 14px}.hm .sum h4{margin-bottom:4px;font-size:10px}.hm .sum .row{padding:4px 0;font-size:11px;letter-spacing:.08em;gap:10px}.hm .sum .row b{text-align:right}
+  .hm .menu{gap:.6vh;width:min(400px,46vw);margin-top:1.6vh}.hm .mi{padding:.9vh 18px .9vh 20px}.hm .mi b{font-size:20px}.hm .mi small{font-size:10px;margin-top:2px}
+  .hm .corner{top:auto;bottom:6vh}.hm .corner b{font-size:22px}
+  .hm .title .tag{margin:1.6vh 0 5vh .4em}
+  .hm .kc{padding:10px 14px 12px}.hm .kc .kl{font-size:56px}.hm .kc h3{font-size:16px;margin:2px 0 6px}.hm .kc .kcap{font-size:11px}.hm .kc .kp{font-size:10px;margin:2px 0 6px}.hm .kc .kn{font-size:9px}
+  .hm .kc.sel,.hm .cup.sel{transform:translateY(-4px) scale(1.02)}.hm .kcnote{margin-top:1vh;font-size:11px}
+  .hm .cup .mos img{aspect-ratio:7/3}.hm .cup .inf{padding:8px 12px 10px}.hm .cup h3{font-size:16px}.hm .cup p{font-size:11px;margin:3px 0 0}.hm .cup ul{display:none}
+  .hm .gtabs{margin-bottom:.6vh;gap:6px}.hm .ct{font-size:11px;padding:5px 10px}.hm .evt{font-size:9px}
+  .hm .gchips{flex-wrap:nowrap;overflow-x:auto;touch-action:pan-x;scrollbar-width:none;margin-bottom:.8vh;gap:6px;flex:none}.hm .gchips::-webkit-scrollbar{display:none}
+  .hm .chip{min-width:88px;flex:none;padding:4px 10px 4px 8px}.hm .chip span{font-size:11px}.hm .chip em{font-size:9px}
+  .hm .arrow{display:none}
+  .hm .gbar{gap:2vw}.hm .gname h2{font-size:28px;margin:2px 0}.hm .gname p{font-size:11px}.hm .gname .no{font-size:10px}.hm .gstate{margin-top:4px;font-size:10px;gap:8px}
+  .hm .stats{padding:8px 12px}.hm .st{margin:2px 0;gap:8px}.hm .st span{width:66px;font-size:9px}.hm .st b{font-size:12px}.hm .st .bar i{height:8px}
+  .hm .gname,.hm .stats{min-width:0}.hm .gright{gap:8px;flex:none}.hm .sw .ol{display:none}.hm .sw{gap:10px;padding-left:4px}.hm .gright .sw i,html.hb-touch .hm .gright .sw i{width:30px;height:30px}
+  .hm .tracks{gap:.6vh;flex:none}.hm .trow .cn{font-size:9px;margin-bottom:.4vh}.hm .trow .cs{gap:.8vw}.hm .tc img{aspect-ratio:3.2/1}.hm .tc .nm{font-size:10px;padding:10px 6px 3px 8px}
+  .hm .tc.sel{transform:translateY(-2px) scale(1.03)}.hm .tdet{margin-top:1vh;gap:1.4vw}.hm .tdet h3{font-size:20px}.hm .tdet p{font-size:11px}
+  .hm .tgh{margin-bottom:.8vh}.hm .tgh h2{font-size:26px}.hm .tr{min-height:44px;gap:8px}.hm .tr .ol{width:118px}.hm .tr .fx{font-size:10px}.hm .tr .pv{width:150px;font-size:11px}.hm .tr .max{width:100px}.hm .tr .btn{width:132px;font-size:11px;padding:6px 8px}
+  .hm .dbox{min-width:300px;padding:14px 20px}.hm .dbox h3{font-size:20px}
+}
+/* narrow phones (iPhone SE class): the garage bar loses the tagline, stats and livery get smaller; setup rows tighten */
+@media (max-height:560px) and (max-width:760px){
+  .hm .gname p{display:none}.hm .gname h2{font-size:22px}.hm .gname .no{font-size:9px}.hm .cbadge{padding:1px 6px;margin-right:6px;font-size:9px}
+  .hm .st span{width:54px;font-size:8px;letter-spacing:.12em}.hm .stats{padding:6px 10px;flex:1.4;min-width:160px}.hm .gname{flex:.8}
+  .hm .gright .sw i,html.hb-touch .hm .gright .sw i{width:26px;height:26px}.hm .gbtns{gap:6px}.hm .gbtns .btn{padding:8px 12px}
+  .hm .ol{width:84px}.hm .note{margin-left:96px;font-size:10px}.hm .sum .row{font-size:10px}.hm .setupwrap>.col{flex:1.4}
+}
 @media (prefers-reduced-motion:reduce){.hm *{animation-duration:.01s!important}}
 `,lt=new Map,ut=e=>{if(!lt.has(e)){let t=document.createElement(`canvas`);Me(t,e),lt.set(e,t.toDataURL(`image/jpeg`,.86))}return lt.get(e)};function dt(e,t){if(!document.getElementById(`hm-style`)){let e=document.createElement(`style`);e.id=`hm-style`,e.textContent=ct,document.head.appendChild(e)}let n=ae();n&&(M(),ne());let r={};try{r=JSON.parse(localStorage.getItem(Xe))||{}}catch{}let i=new URLSearchParams(location.search).get(`q`),a=location.hash===`#garage`;a&&history.replaceState(null,``,location.pathname+location.search);let o=W.findIndex(e=>e.key===r.bike),s=W.findIndex(e=>e.key===`mantis`),c=o>=0&&I(r.bike)?o:I(`mantis`)&&s>=0?s:Math.max(0,W.findIndex(e=>I(e.key))),l={screen:a?`garage`:`title`,f:0,mode:a?`shop`:`race`,bike:c,mine:W[c].key,liv:0,evcls:[`C`,`B`,`A`,`S`].includes(r.evcls)?r.evcls:`C`,dlg:!1,pop:null,warn:null,track:Math.max(0,t.findIndex(e=>e.key===r.level)),cup:Math.max(0,R.findIndex(e=>e.key===r.cup)),diff:$e.includes(r.diff)?r.diff:`pro`,laps:Ze.includes(r.laps)?r.laps:3,ai:Number.isInteger(r.ai)?Math.max(0,Math.min(et,r.ai)):5,assist:r.assist??0,q:Qe.includes(i)?i:(!n||r.qPicked)&&Qe.includes(r.q)?r.q:n?`med`:`high`,qPicked:!!r.qPicked,steer:ie(),tsens:F(),vol:Math.max(0,Math.min(10,Math.round(ot(`hb.volume`,.8)*10))),line:ot(`hb.line`,`0`)===`1`,music:(()=>{try{return JSON.parse(ot(`hb.audio`,`{}`)).music!==!1}catch{return!0}})()},u=()=>W[l.bike],d=()=>it(u()),f=()=>{let e=parseInt(ot(`hb.livery.`+u().key,``),10),t=d().indexOf(e);l.liv=t<0?0:t};f();let p=()=>t[l.track],m=R.map(e=>({...e,idx:t.map((t,n)=>t.cup===e.key?n:-1).filter(e=>e>=0)})).filter(e=>e.idx.length),h=null,g=null,_=!1,v=e=>Math.round(e).toLocaleString(`en-US`),y={C:`#5fe39a`,B:`#4ab4ff`,A:`#ff9a2e`,S:`#d55bff`},b=e=>`${e} · ${xe[e].name.toUpperCase()}`,x=e=>ve(e.key),S=e=>me(e.key),C=e=>W.filter(t=>S(t)===e).sort((e,t)=>x(e)-x(t)),ee=()=>Object.keys(xe).filter(e=>C(e).length),w=()=>l.mode===`race`||l.mode===`gp`,T=()=>w()?se[l.evcls]:1/0,E=e=>I(e.key)&&x(e)<=T(),D={race:`QUICK RACE`,tt:`TIME TRIAL`,gp:`GRAND PRIX`,shop:`CAREER`},O=()=>`<div class="cr"><i></i>${v(B().credits)}<span>CR</span></div>`,re=[[`SPEED`,`speed`],[`ACCEL`,`accel`],[`HANDLING`,`handling`],[`MASS`,`mass`],[`ENERGY`,`energy`]];function j(e){let t=k(e.key,{},{weight:!1}),n=k(e.key,L(e.key)),r=e=>n[e]/t[e]-1,i={speed:r(`top`)*50,accel:r(`accel`)*15,handling:(r(`turn`)+r(`grip`))*15,mass:r(`mass`)*10,energy:r(`energy`)*10};return re.map(([t,n])=>[t,e.stats[n],Math.max(0,Math.min(10,Math.round(e.stats[n]+i[n])))])}e.style.pointerEvents=`auto`,e.innerHTML=`<div class="hm"><canvas class="bg"></canvas><div class="vign"></div><div class="scan"></div>
     <div class="wrap"><div class="scr in"></div></div>
@@ -188,7 +231,7 @@ import{a as e,o as t,t as n}from"./three.module-DcNjV2DT.js";import{A as r,Fr as
           ${d}<button class="btn pri" data-f="${Object.keys(A).length}" data-act="tuneback" style="margin-top:1.4vh"><span>BACK TO GARAGE</span></button></div>${ge(`<kbd>↑</kbd><kbd>↓</kbd> PART`,`<kbd>ENTER</kbd> BUY UPGRADE`,`<kbd>ESC</kbd> BACK`)}`},nav:e=>{let t=Object.keys(A);e===`U`||e===`D`?J(e,t.length+1):e===`B`?Q(`garage`):e===`A`&&(l.f===t.length?Q(`garage`):Ae(t[l.f]))}},tracks:{bg:`side`,accent:()=>G(p().key).a,html:()=>{let e=p();return`${H(`SELECT TRACK`)}<div class="tracks">${m.map(e=>`<div class="trow"><div class="cn">${e.title.toUpperCase()}</div><div class="cs">${e.idx.map(e=>`
           <div class="tc${e===l.track?` sel`:``}" data-act="track" data-v="${e}" style="--ca:${G(t[e].key).a}"><img src="${ut(t[e].key)}" alt=""><div class="nm">${t[e].title}</div><i class="bar"></i></div>`).join(``)}</div></div>`).join(``)}</div>
         <div class="tdet"><div><h3>${e.title.toUpperCase()}</h3><p>${e.blurb}</p></div><button class="btn pri" data-act="trackok" style="margin-left:auto"><span>CONTINUE</span></button></div>${V}`},nav:e=>{let t=m.map(e=>e.idx),n=t.findIndex(e=>e.includes(l.track)),r=t[n].indexOf(l.track);if(e===`L`)l.track=t[n][(r+t[n].length-1)%t[n].length];else if(e===`R`)l.track=t[n][(r+1)%t[n].length];else if(e===`U`||e===`D`){let i=(n+(e===`U`?t.length-1:1))%t.length;l.track=t[i][Math.min(r,t[i].length-1)]}else e===`A`?Q(`setup`):e===`B`&&Q(`garage`)}},setup:{bg:`side`,accent:()=>G(Te().key).a,html:()=>{let e=Ee(),t=Te(),n=t=>e.indexOf(t),r=(e,t,r)=>`<div class="opt" data-f="${n(e)}"><span class="ol">${t}</span>${r}</div>`,i={diff:()=>r(`diff`,`DIFFICULTY`,U(`diff`,$e,l.diff))+`<div class="note">${tt[l.diff]}</div>`,laps:()=>r(`laps`,`LAPS`,U(`laps`,Ze,l.laps,e=>e)),ai:()=>r(`ai`,`OPPONENTS`,`<div class="step"><button data-act="ai" data-v="-1"><span>−</span></button><span class="v">${l.ai}</span><button data-act="ai" data-v="1"><span>+</span></button>${ye(l.ai)}</div>`),assist:()=>r(`assist`,`ASSISTS`,U(`assist`,[0,1],l.assist,e=>e?`ON`:`OFF`)),go:()=>`<button class="go" data-f="${n(`go`)}" data-act="go">${l.mode===`gp`?`START CUP`:`RACE`}</button>`},a=[[`MODE`,D[l.mode]],[`VEHICLE`,`${u().name.toUpperCase()} · PR ${x(u())}`],...w()?[[`CLASS`,`${b(l.evcls)} · PR ≤ ${isFinite(T())?T():`∞`}`]]:[],[l.mode===`gp`?`CUP`:`TRACK`,(l.mode===`gp`?m[l.cup%m.length].title:t.title).toUpperCase()],[`RACERS`,l.mode===`tt`?`SOLO`:l.ai+1]];return`${H(`RACE SETUP`)}<div class="setupwrap"><div class="col">${e.map(e=>i[e]()).join(``)}</div>
-          <div class="sum panel"><h4>YOUR RACE</h4>${a.map(([e,t])=>`<div class="row"><span>${e}</span><b>${t}</b></div>`).join(``)}</div></div>${V}`},count:()=>Ee().length,nav:e=>{let t=Ee()[l.f];e===`B`?Q(l.mode===`gp`?`garage`:`tracks`):e===`U`||e===`D`?J(e,Ee().length):e===`A`?t===`go`?Fe():l.f=Ee().length-1:je(t,e===`L`?-1:1)}},settings:{bg:`main`,html:()=>{let e=(e,t,n)=>`<div class="opt" data-f="${e}"><span class="ol">${t}</span>${n}</div>`;return`<div class="top"><div class="logo sm"><span class="l1">HOVERBIKE</span><span class="l2">RACER</span></div><div class="crumb"><b>SETTINGS</b>${O()}</div></div>
+          <div class="sumcol"><div class="sum panel"><h4>YOUR RACE</h4>${a.map(([e,t])=>`<div class="row"><span>${e}</span><b>${t}</b></div>`).join(``)}</div>${i.go().replace(`class="go"`,`class="go go2"`)}</div></div>${V}`},count:()=>Ee().length,nav:e=>{let t=Ee()[l.f];e===`B`?Q(l.mode===`gp`?`garage`:`tracks`):e===`U`||e===`D`?J(e,Ee().length):e===`A`?t===`go`?Fe():l.f=Ee().length-1:je(t,e===`L`?-1:1)}},settings:{bg:`main`,html:()=>{let e=(e,t,n)=>`<div class="opt" data-f="${e}"><span class="ol">${t}</span>${n}</div>`;return`<div class="top"><div class="logo sm"><span class="l1">HOVERBIKE</span><span class="l2">RACER</span></div><div class="crumb"><b>SETTINGS</b>${O()}</div></div>
         <div class="setl">${e(0,`QUALITY`,U(`q`,Qe,l.q))}
           ${e(1,`MASTER VOLUME`,`<div class="step"><button data-act="vol" data-v="-1"><span>−</span></button><span class="v">${l.vol}</span><button data-act="vol" data-v="1"><span>+</span></button><div class="pips">${Array.from({length:10},(e,t)=>`<i class="${t<l.vol?`on`:``}"></i>`).join(``)}</div></div>`)}
           ${e(2,`MUSIC`,U(`music`,[1,0],+!!l.music,e=>e?`ON`:`OFF`))}
